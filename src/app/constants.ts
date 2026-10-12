@@ -35,6 +35,21 @@ export const DOWNLOAD_LINKS = {
   },
 } as const;
 
+export const SIGNET_DOWNLOAD_LINKS = {
+  testflight: {
+    ...DOWNLOAD_LINKS.testflight,
+    url: "https://testflight.apple.com/join/E4P44dXF",
+  },
+  playstore: {
+    ...DOWNLOAD_LINKS.playstore,
+    url: "https://play.google.com/store/apps/details?id=com.noahwallet.signet",
+  },
+  apk: {
+    ...DOWNLOAD_LINKS.apk,
+    url: "https://github.com/BlixtWallet/noah/releases/latest/download/noah-signet.apk",
+  },
+} as const;
+
 export const EXTERNAL_LINKS = {
   github: "https://github.com/BlixtWallet/noah",
   arkProtocol: "https://ark-protocol.org",

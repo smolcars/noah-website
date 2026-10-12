@@ -30,6 +30,17 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the website.
 
+The homepage selects downloads from the request hostname. `signet.noahwallet.io`
+serves the Signet TestFlight, Google Play, and APK links with a Signet label;
+other hosts keep the mainnet links. Point both domains at this Next.js deployment
+and preserve the original `Host` header in any reverse proxy.
+
+To check the Signet version locally:
+
+```bash
+curl -H 'Host: signet.noahwallet.io' http://localhost:3000
+```
+
 ## Build
 
 Create a production build:

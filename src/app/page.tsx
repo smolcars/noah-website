@@ -1,7 +1,17 @@
+import { headers } from "next/headers";
 import Image from "next/image";
-import { SITE_CONFIG, DOWNLOAD_LINKS, EXTERNAL_LINKS } from "./constants";
+import {
+  DOWNLOAD_LINKS,
+  EXTERNAL_LINKS,
+  SIGNET_DOWNLOAD_LINKS,
+  SITE_CONFIG,
+} from "./constants";
 
-export default function Home() {
+export default async function Home() {
+  const host = (await headers()).get("host")?.split(":")[0].toLowerCase();
+  const isSignet = host === "signet.noahwallet.io";
+  const downloadLinks = isSignet ? SIGNET_DOWNLOAD_LINKS : DOWNLOAD_LINKS;
+
   return (
     <div className="min-h-screen bg-black">
       <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_top,rgba(59,130,246,0.15),transparent_50%,transparent)]" />
@@ -23,6 +33,11 @@ export default function Home() {
               <span className="text-xl font-semibold text-white">
                 {SITE_CONFIG.name}
               </span>
+              {isSignet && (
+                <span className="rounded-full border border-blue-400/30 bg-blue-500/10 px-3 py-1 text-sm font-medium text-blue-300">
+                  Signet
+                </span>
+              )}
             </div>
 
             <a
@@ -124,13 +139,15 @@ export default function Home() {
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-white mb-3">Get Started</h2>
             <p className="text-slate-400">
-              Choose your platform and start using Noah today
+              {isSignet
+                ? "Download Noah for Signet. Uses test bitcoin with no monetary value."
+                : "Choose your platform and start using Noah today"}
             </p>
           </div>
 
           <div className="grid gap-6 md:grid-cols-3 max-w-5xl mx-auto">
             <a
-              href={DOWNLOAD_LINKS.testflight.url}
+              href={downloadLinks.testflight.url}
               className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-blue-500/10 to-blue-600/10 p-8 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:from-blue-500/20 hover:to-blue-600/20 border border-blue-400/20 hover:border-blue-400/40 hover:shadow-2xl hover:shadow-blue-500/20"
             >
               <div className="flex flex-col gap-6">
@@ -145,10 +162,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xl font-semibold text-white">
-                    {DOWNLOAD_LINKS.testflight.label}
+                    {downloadLinks.testflight.label}
                   </p>
                   <p className="text-sm text-slate-400">
-                    {DOWNLOAD_LINKS.testflight.subtitle}
+                    {downloadLinks.testflight.subtitle}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 text-blue-400 text-sm font-medium">
@@ -171,7 +188,7 @@ export default function Home() {
             </a>
 
             <a
-              href={DOWNLOAD_LINKS.playstore.url}
+              href={downloadLinks.playstore.url}
               className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-green-500/10 to-green-600/10 p-8 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:from-green-500/20 hover:to-green-600/20 border border-green-400/20 hover:border-green-400/40 hover:shadow-2xl hover:shadow-green-500/20"
             >
               <div className="flex flex-col gap-6">
@@ -186,10 +203,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xl font-semibold text-white">
-                    {DOWNLOAD_LINKS.playstore.label}
+                    {downloadLinks.playstore.label}
                   </p>
                   <p className="text-sm text-slate-400">
-                    {DOWNLOAD_LINKS.playstore.subtitle}
+                    {downloadLinks.playstore.subtitle}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 text-green-400 text-sm font-medium">
@@ -212,7 +229,7 @@ export default function Home() {
             </a>
 
             <a
-              href={DOWNLOAD_LINKS.apk.url}
+              href={downloadLinks.apk.url}
               className="group relative overflow-hidden rounded-3xl bg-gradient-to-br from-purple-500/10 to-purple-600/10 p-8 backdrop-blur-sm transition-all duration-300 hover:scale-[1.02] hover:from-purple-500/20 hover:to-purple-600/20 border border-purple-400/20 hover:border-purple-400/40 hover:shadow-2xl hover:shadow-purple-500/20"
             >
               <div className="flex flex-col gap-6">
@@ -233,10 +250,10 @@ export default function Home() {
                 </div>
                 <div className="space-y-2">
                   <p className="text-xl font-semibold text-white">
-                    {DOWNLOAD_LINKS.apk.label}
+                    {downloadLinks.apk.label}
                   </p>
                   <p className="text-sm text-slate-400">
-                    {DOWNLOAD_LINKS.apk.subtitle}
+                    {downloadLinks.apk.subtitle}
                   </p>
                 </div>
                 <div className="flex items-center gap-2 text-purple-400 text-sm font-medium">
