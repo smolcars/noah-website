@@ -9,7 +9,7 @@ import {
 
 export default async function Home() {
   const host = (await headers()).get("host")?.split(":")[0].toLowerCase();
-  const isSignet = host === "signet.noahwallet.io";
+  const isSignet = host === "signet.beta.noahwallet.io";
   const downloadLinks = isSignet ? SIGNET_DOWNLOAD_LINKS : DOWNLOAD_LINKS;
 
   return (

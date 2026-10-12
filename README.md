@@ -30,15 +30,19 @@ bun dev
 
 Open [http://localhost:3000](http://localhost:3000) to view the website.
 
-The homepage selects downloads from the request hostname. `signet.noahwallet.io`
+The homepage selects downloads from the request hostname. `signet.beta.noahwallet.io`
 serves the Signet TestFlight, Google Play, and APK links with a Signet label;
 other hosts keep the mainnet links. Point both domains at this Next.js deployment
 and preserve the original `Host` header in any reverse proxy.
 
+Add `signet.beta.noahwallet.io` to the Noah Vercel project's domains, then create
+a CNAME named `signet.beta` in the `noahwallet.io` Cloudflare DNS zone using the
+target Vercel provides. Keep the existing `signet.noahwallet.io` A/AAAA records.
+
 To check the Signet version locally:
 
 ```bash
-curl -H 'Host: signet.noahwallet.io' http://localhost:3000
+curl -H 'Host: signet.beta.noahwallet.io' http://localhost:3000
 ```
 
 ## Build
